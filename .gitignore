@@ -26,3 +26,9 @@ build/
 .vscode/
 .idea/
 *.swp
+
+# Unit Tests (local only)
+tests/
+backend/tests/
+test_*.py
+
