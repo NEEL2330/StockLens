@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from app.api.routes import health
 
 app = FastAPI(
@@ -13,3 +13,9 @@ app.include_router(health.router, prefix="/api")
 @app.get("/")
 def root():
     return {"message": "Welcome to StockLens API. Visit /docs for documentation."}
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+def favicon():
+    return Response(status_code=204)
+
