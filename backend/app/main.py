@@ -1,5 +1,5 @@
 from fastapi import FastAPI, Response
-from app.api.routes import health
+from app.api.routes import health, auth
 
 app = FastAPI(
     title="StockLens API",
@@ -8,6 +8,7 @@ app = FastAPI(
 )
 
 app.include_router(health.router, prefix="/api")
+app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
 
 
 @app.get("/")
