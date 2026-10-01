@@ -1,0 +1,1 @@
+"""StockLens backend application package."""
