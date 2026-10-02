@@ -1,8 +1,12 @@
 from datetime import datetime, timezone
+from typing import List, TYPE_CHECKING
 from sqlalchemy import DateTime, Integer, String, func
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.database import Base
+
+if TYPE_CHECKING:
+    from app.models.watchlist import Watchlist
 
 
 class User(Base):
@@ -17,6 +21,13 @@ class User(Base):
         default=lambda: datetime.now(timezone.utc),
         server_default=func.now(),
         nullable=False,
+    )
+
+    # Relationship to user's watchlist entries
+    watchlists: Mapped[List["Watchlist"]] = relationship(
+        "Watchlist",
+        back_populates="user",
+        cascade="all, delete-orphan",
     )
 
     def __repr__(self) -> str:
